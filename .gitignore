@@ -15,8 +15,8 @@ db.sqlite3*
 # Backup files # 
 *.bak 
 **/**/icons
-#Exclude fixtures
-fixtures
+#Exclude fixtures, RS added fixtures
+#fixtures
 
 #Static examples
 static/examples

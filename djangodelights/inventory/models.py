@@ -62,6 +62,9 @@ class RecipeRequirement(models.Model):
         ingredient={self.ingredient.name};
         qty={self.quantity}
         """
+    
+    def enough(self):
+        return self.quantity <= self.ingredient.quantity
 
 class Purchase(models.Model):
     ## `Purchase`

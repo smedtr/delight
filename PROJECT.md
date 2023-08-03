@@ -297,6 +297,25 @@ For this inventory app to be useful for our restaurant owner, we would want our 
 
 The majority of the above queries can be made quite easily using Django's generics. For the last one, you'll need to do some computation across multiple models. It will be easier to do so using some custom values that we can supply to our template with the `get_context_data` function in a `TemplateView`. Try creating the queries and testing your logic in the Django shell before you execute it in a template.
 
+### Looking for the ingredients of a MenuItem
+```bash
+python manage.py shell
+from inventory.models import MenuItem, Ingredient, RecipeRequirement, Purchase
+jaffa_cake = MenuItem.objects.filter(title="Djaffa Cake").first()
+jaffa_cake.reciperequirement_set.all()
+```
+### Looking if there is sufficient remaining if the ingredient
+Check how much eggs we would need in the Djaffa Cake recepie
+```bash
+python manage.py shell
+from inventory.models import MenuItem, Ingredient, RecipeRequirement, Purchase
+jaffa_cake = MenuItem.objects.filter(title="Djaffa Cake").first()
+ei_ingredient = Ingredient.objects.filter(name="Ei").first()
+ei_requirement = RecipeRequirement.objects.filter(menu_item=jaffa_cake, ingredient=ei_ingredient).first()
+print(ei_requirement.values_list("quantity"))
+print(ei_requirement.enough())
+```
+
 ## Creating views and templates
 To enable a full suite of CRUD functionality for our inventory app, we'll require one templates for each of the following:
 

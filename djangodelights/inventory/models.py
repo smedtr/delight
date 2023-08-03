@@ -44,9 +44,32 @@ class MenuItem(models.Model):
         title={self.title};
         price={self.price}
         """
+    def available(self):
+        return all(X.enough() for X in self.reciperequirement_set.all())
+
+    def cost(self):   
+        ## Voor de Jaffa Cake
+        #Jaffa Cake
+        #Chocolade 150g 0.00675 = 1.0125
+        #Bloem 100g 0.00425 = 0.425
+        #Rietsuiker 150g 0.00089 = 0.1335
+        #Ei 1st 0.25 = 0.25
+        #Confituur 100g 0.00089 = 0.089
+        # Total Cost 1.91
+        # Total Profit = 5.00 - 1,91 = 3.09
+        ##
+        #total_cost = all(X.cost() for X in self.reciperequirement_set.all())
+        # all geeft een true of false of mee dus waarde 1 dit geeft dan dat profit 4 is 5.0 - 1 = 4.0     
+        total_cost = 0
+        for X in self.reciperequirement_set.all() :
+            total_cost = total_cost + X.cost()  
+        return total_cost
     
-    def profit(self):
-        return 8
+    def profit(self):                
+        total_profit = self.price - self.cost()
+        return total_profit
+    
+    
     
 class RecipeRequirement(models.Model):
     ## `RecipeRequirement`

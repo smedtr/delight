@@ -312,9 +312,23 @@ from inventory.models import MenuItem, Ingredient, RecipeRequirement, Purchase
 jaffa_cake = MenuItem.objects.filter(title="Djaffa Cake").first()
 ei_ingredient = Ingredient.objects.filter(name="Ei").first()
 ei_requirement = RecipeRequirement.objects.filter(menu_item=jaffa_cake, ingredient=ei_ingredient).first()
-print(ei_requirement.values_list("quantity"))
+print(ei_requirement)
+print(ei_ingredient)
 print(ei_requirement.enough())
+print(ei_requirement.cost())
 ```
+### Return the profit of a MenuItem
+Return the profit of individual MenuItem
+Calculate the cost of an ingredient in a recipe.
+```bash
+python manage.py shell
+from inventory.models import MenuItem, Ingredient, RecipeRequirement, Purchase
+jaffa_cake = MenuItem.objects.filter(title="Djaffa Cake").first()
+ei_ingredient = Ingredient.objects.filter(name="Ei").first()
+ei_requirement = RecipeRequirement.objects.filter(menu_item=jaffa_cake, ingredient=ei_ingredient).first()
+print(ei_requirement.cost())
+```
+
 
 ## Creating views and templates
 To enable a full suite of CRUD functionality for our inventory app, we'll require one templates for each of the following:

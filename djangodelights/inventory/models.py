@@ -45,6 +45,9 @@ class MenuItem(models.Model):
         price={self.price}
         """
     
+    def profit(self):
+        return 8
+    
 class RecipeRequirement(models.Model):
     ## `RecipeRequirement`
     #This model represents a single ingredient and how much of it is required for an item off the menu.
@@ -62,9 +65,12 @@ class RecipeRequirement(models.Model):
         ingredient={self.ingredient.name};
         qty={self.quantity}
         """
-    
+            
     def enough(self):
         return self.quantity <= self.ingredient.quantity
+            
+    def cost(self):        
+        return self.quantity * self.ingredient.unit_price
 
 class Purchase(models.Model):
     ## `Purchase`

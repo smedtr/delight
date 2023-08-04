@@ -9,18 +9,18 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Quantity</th>
+                        <th class="th_price">Quantity</th>
                         <th>Unit</th>
-                        <th>Unit Price</th>
+                        <th class="th_price">Unit Price</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for ingredient in ingredients %}
                     <tr>
                         <td>{{ ingredient.name }}</td>
-                        <td>{{ ingredient.quantity }}</td>
-                        <td>{{ ingredient.unit }}</td>
-                        <td class="price">${{ ingredient.price_per_unit|stringformat:".2f" }}</td>
+                        <td class="td_price">{{ ingredient.quantity|stringformat:".2f" }}</div></td>                        
+                        <td>{{ ingredient.get_unit_display }}</td>
+                        <td class="td_price">€ {{ ingredient.unit_price|stringformat:".5f" }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

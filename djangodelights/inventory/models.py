@@ -20,7 +20,7 @@ class Ingredient(models.Model):
 
     name = models.CharField(max_length=200)
     quantity = models.FloatField(default=0.00, verbose_name="quantity in stock")    
-    unit = models.CharField(blank=True, choices=UnitType.choices, max_length=15)
+    unit = models.CharField(blank=True, choices=UnitType.choices, max_length=15)    
     unit_price = models.FloatField(default=0.00)
 
     def __str__(self):

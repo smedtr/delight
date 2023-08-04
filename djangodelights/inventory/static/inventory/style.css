@@ -166,4 +166,16 @@ body {
   a:hover {
     font-weight: bold;
   }
+
+td.td_price {
+  text-align: right;  
+  padding-right: 80pt;  
+}
+
+th.th_price {
+  text-align: right;  
+  padding-right: 80pt; 
+}
+
+
   

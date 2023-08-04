@@ -9,18 +9,18 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th class="th_price">Quantity</th>
+                        <th class="price">Quantity</th>
                         <th>Unit</th>
-                        <th class="th_price">Unit Price</th>
+                        <th class="price">Unit Price</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for ingredient in ingredients %}
                     <tr>
                         <td>{{ ingredient.name }}</td>
-                        <td class="td_price">{{ ingredient.quantity|stringformat:".2f" }}</div></td>                        
+                        <td class="price">{{ ingredient.quantity|stringformat:".2f" }}</div></td>                        
                         <td>{{ ingredient.get_unit_display }}</td>
-                        <td class="td_price">€ {{ ingredient.unit_price|stringformat:".5f" }}</td>
+                        <td class="price">€ {{ ingredient.unit_price|stringformat:".5f" }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -51,25 +51,28 @@
             </table>
         </div>
 
-        <hr/>
+        <hr/>       
 
-        <div>
-            <h2>Menu</h2>
-            <ul class="menu-items">
-            {% for menu_item in menu_items %}
-                <li>
-                    <div class="menu-item-header">
-                        <div class="menu-item-title">{{ menu_item.title }}</div>
-                        <div class="menu-item-price">${{ menu_item.price|stringformat:".2f" }}</div>
-                    </div>
-                    <ul class="menu-item-ingredients">
-                        {% for recipe_requirement in menu_item.reciperequirement_set.all %}
-                        <li>{{ recipe_requirement.quantity }} {{recipe_requirement.ingredient.unit }} {{ recipe_requirement.ingredient.name }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
+    <div>
+        <h2>Menu</h2>
+        {% for menu_item in menu_items %}   
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>{{ menu_item.title }} : € {{ menu_item.price|stringformat:".2f" }}</th>                   
+                    </tr>
+                </thead>
+                <tbody>            
+                    {% for recipe_requirement in menu_item.reciperequirement_set.all %}
+                    <tr>
+                        <td>                    
+                        {{ recipe_requirement.quantity }} {{recipe_requirement.ingredient.get_unit_display }} {{ recipe_requirement.ingredient.name }}                    
+                        </td>                  
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
     </div>
+
 {% endblock %}

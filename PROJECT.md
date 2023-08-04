@@ -339,6 +339,9 @@ print(jaffa_cake.cost())
 print(jaffa_cake.profit())
 
 ```
+## Table layouts 
+As a lot of this is displayed via tables could be OK to review this. See perhaps : https://dev.to/dcodeyt/creating-beautiful-html-tables-with-css-428l
+
 
 ## Creating views and templates
 To enable a full suite of CRUD functionality for our inventory app, we'll require one templates for each of the following:

@@ -167,15 +167,49 @@ body {
     font-weight: bold;
   }
 
-td.td_price {
+.inventory-table {
+  border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.inventory-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;  
+}
+
+.inventory-table th,
+.inventory-table td {
+    padding: 12px 15px;    
+}
+
+.inventory-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.inventory-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.inventory-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.inventory-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+th.price {
   text-align: right;  
   padding-right: 80pt;  
 }
 
-th.th_price {
+td.price {
   text-align: right;  
-  padding-right: 80pt; 
+  padding-right: 80pt;  
 }
-
-
-  

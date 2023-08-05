@@ -38,5 +38,12 @@ class MenuView(ListView):
 
 class NewMenuItemView(CreateView):
     model = MenuItem
-    template_name = ""
+    template_name = "inventory/add_menu_item.html"
     form_class = MenuItemForm
+
+class UpdateMenuItemView(UpdateView):
+    model = MenuItem
+    template_name = "inventory/update_menu_item.html"
+    form_class = MenuItemForm
+
+    

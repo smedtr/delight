@@ -23,6 +23,9 @@ class Ingredient(models.Model):
     unit = models.CharField(blank=True, choices=UnitType.choices, max_length=15)    
     unit_price = models.FloatField(default=0.00)
 
+    def get_absolute_url(self):
+        return "/ingredients"
+
     def __str__(self):
         return f"""
         name={self.name};
@@ -44,6 +47,10 @@ class MenuItem(models.Model):
         title={self.title};
         price={self.price}
         """
+    
+    def get_absolute_url(self):
+        return "/menu"
+    
     def available(self):
         return all(X.enough() for X in self.reciperequirement_set.all())
 

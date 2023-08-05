@@ -11,9 +11,9 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Quantity</th>
+                <th class="price">Quantity</th>
                 <th>Unit</th>
-                <th>Unit Price</th>
+                <th class="price">Unit Price</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +22,9 @@
                 <td>
                     <a href="{% url "update_ingredient" ingredient.id %}">{{ ingredient.name }}</a>
                 </td>
-                <td>{{ ingredient.quantity }}</td>
-                <td>{{ ingredient.unit }}</td>
-                <td class="price">${{ ingredient.price_per_unit|stringformat:".2f" }}</td>
+                <td class="price">{{ ingredient.quantity }}</td>
+                <td>{{ ingredient.get_unit_display }}</td>
+                <td class="price">€ {{ ingredient.unit_price|stringformat:".5f" }}</td>                
             </tr>
         {% endfor %}
         </tbody>

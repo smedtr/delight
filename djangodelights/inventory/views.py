@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirement
-from .forms import IngredientForm, MenuItemForm
+from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm
 
 # Create your views here.
 
@@ -46,4 +46,13 @@ class UpdateMenuItemView(UpdateView):
     template_name = "inventory/update_menu_item.html"
     form_class = MenuItemForm
 
-    
+class NewRecipeRequirementView(CreateView):
+    model = RecipeRequirement
+    template_name = "inventory/add_recipe_requirement.html"
+    form_class = RecipeRequirementForm    
+
+class UpdateRecipeRequirementView(UpdateView):
+    model = RecipeRequirement
+    template_name = "inventory/update_recipe_requirement.html"
+    form_class = RecipeRequirementForm    
+

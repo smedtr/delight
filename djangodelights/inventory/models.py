@@ -95,6 +95,9 @@ class RecipeRequirement(models.Model):
         ingredient={self.ingredient.name};
         qty={self.quantity}
         """
+    
+    def get_absolute_url(self):
+        return "/menu"
             
     def enough(self):
         return self.quantity <= self.ingredient.quantity

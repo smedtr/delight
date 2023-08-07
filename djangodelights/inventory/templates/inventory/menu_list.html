@@ -12,7 +12,8 @@
     {% for menu_item in object_list %}
         <li>
             <div class="menu-item-header">
-                <div class="menu-item-title"> <a href="{% url "update_menu_item" menu_item.id %}">{{ menu_item.title }}</a></div>
+                <div class="menu-item-title"> <a href="{% url "update_menu_item" menu_item.id %}">{{ menu_item.title }}</a></div>                
+                {% if menu_item.available is False %}<div class="menu-item-available">Not available</div>{% endif %}
                 <div class="menu-item-price">€ {{ menu_item.price|stringformat:".2f" }}</div>
             </div>
             <p><a href="{% url 'add_recipe_requirement_to_menu_item' menu_item.id %}">Add Recipe Requirement</a></p>

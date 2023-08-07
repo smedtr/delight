@@ -18,6 +18,9 @@ db.sqlite3*
 #Exclude fixtures, RS added fixtures
 #fixtures
 
+# My tasklist
+TASKLIST*
+
 #Static examples
 static/examples
 static/js/base

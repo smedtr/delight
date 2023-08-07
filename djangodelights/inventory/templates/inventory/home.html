@@ -36,6 +36,7 @@
                     <tr>
                         <th>Menu Item</th>
                         <th>Price</th>
+                        <th>Quantity</th>
                         <th>Time</th>
                     </tr>
                 </thead>
@@ -44,6 +45,7 @@
                     <tr>
                         <td>{{ purchase.menu_item.title }}</td>
                         <td class="price">${{ purchase.menu_item.price|stringformat:".2f" }}</td>
+                        <td class="price">${{ purchase.quantity }}</td>
                         <td>{{ purchase.timestamp }}</td>
                     </tr>
                 {% endfor %}

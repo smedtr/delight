@@ -28,3 +28,4 @@ class RecipeRequirementMenuItemForm(forms.ModelForm):
     class Meta:
         model = RecipeRequirement
         fields = ('ingredient','quantity')
+

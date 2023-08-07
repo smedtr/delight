@@ -113,10 +113,14 @@ class Purchase(models.Model):
     #- **`timestamp`**: a timestamp indicating the time that the purchase was recorded (i.e. a `DateTimeField`)
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+    quantity = models.IntegerField(default=0, verbose_name="quantity ordered")    
 
     def __str__(self):
         return f"""
         menu_item=[{self.menu_item.__str__()}];
         time={self.timestamp}
         """
+    
+    def get_absolute_url(self):
+        return "/purchases"
     

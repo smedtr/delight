@@ -20,9 +20,18 @@
             <ul class="menu-item-ingredients">                
                 {% for recipe_requirement in menu_item.reciperequirement_set.all %}                
                 <li><a href="{% url 'update_recipe_requirement' recipe_requirement.id %} ">
-                    {{ recipe_requirement.quantity }}
-                    {{recipe_requirement.ingredient.get_unit_display }}
-                    {{ recipe_requirement.ingredient.name }}</a>
+                    {% if recipe_requirement.enough is False %}
+                        <div class="menu-item-available">
+                            {{ recipe_requirement.quantity }}
+                            {{recipe_requirement.ingredient.get_unit_display }}
+                            {{ recipe_requirement.ingredient.name }}
+                        </div>
+                    {% else %}
+                        {{ recipe_requirement.quantity }}
+                        {{recipe_requirement.ingredient.get_unit_display }}
+                        {{ recipe_requirement.ingredient.name }}
+                    {% endif %}
+                    </a>
                 </li>
                 {% endfor %}
             </ul>

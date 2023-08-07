@@ -99,7 +99,7 @@ class RecipeRequirement(models.Model):
     def get_absolute_url(self):
         return "/menu"
             
-    def enough(self):
+    def enough(self):        
         return self.quantity <= self.ingredient.quantity
             
     def cost(self):        

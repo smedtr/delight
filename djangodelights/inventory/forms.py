@@ -23,3 +23,8 @@ class RecipeRequirementForm(forms.ModelForm):
     class Meta:
         model = RecipeRequirement
         fields = "__all__"
+
+class RecipeRequirementMenuItemForm(forms.ModelForm):
+    class Meta:
+        model = RecipeRequirement
+        fields = ('ingredient','quantity')

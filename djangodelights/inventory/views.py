@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirement
-from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, RecipeRequirementMenuItemForm, PurchaseForm
+from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, RecipeRequirementMenuItemForm, PurchaseForm, PurchaseMultiMenuItemForm
 
 # Create your views here.
 
@@ -73,4 +73,6 @@ class NewPurchaseView(CreateView):
     model = Purchase
     template_name = "inventory/add_purchase.html"
     form_class = PurchaseForm 
+
+
 

@@ -15,5 +15,6 @@ urlpatterns = [
     path('reciperequirement/<int:menu_item>/new', views.NewRecipeRequirementToMenuItemView.as_view(), name="add_recipe_requirement_to_menu_item"),   
     path('purchases/', views.PurchasesView.as_view(), name="purchases"),
     path('purchases/new', views.NewPurchaseView.as_view(), name="add_purchase"),
+    path('purchases/new_multi', views.NewMultiPurchaseView.as_view(), name="add_multi_purchase"),
     
 ]

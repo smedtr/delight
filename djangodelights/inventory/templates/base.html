@@ -25,7 +25,7 @@
         {% url 'home' as home_url %}
         {% url 'ingredients' as ingredients_url %}
         {% url 'menu' as menu_url %}
-        {% url 'purchases' as purchases_url %}
+        {% url 'purchases' as purchases_url %}        
         {% url 'reports' as reports_url %}
         <a class="nav-item{% if request.path == home_url %} current-page{% endif %}" href="{% url 'home' %}">Home</a>            
         <a class="nav-item{% if request.path == ingredients_url %} current-page{% endif %}" href="{% url 'ingredients' %}">Ingredients</a>        

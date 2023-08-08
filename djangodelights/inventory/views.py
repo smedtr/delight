@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
 
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -69,10 +69,29 @@ class PurchasesView(ListView):
     model =Purchase
     template_name = "inventory/purchase_list"
 
-class NewPurchaseView(CreateView):
-    model = Purchase
+class NewPurchaseView(TemplateView):
+    # 
     template_name = "inventory/add_purchase.html"
-    form_class = PurchaseForm 
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # De menu_items die we tonen zijn alleen de menu_items die available zijn
+        context['menu_items'] =[X for X in MenuItem.objects.all() if X.available()]              
+        return context
+    
+    def post(self, request):
+        menu_item_id = request.POST["menu_item"]
+        qty_purchased = float(request.POST["quantity"])
+        menu_item = MenuItem.objects.get(pk=menu_item_id)
+        requirements = menu_item.reciperequirement_set
+        purchase = Purchase(menu_item=menu_item,quantity=qty_purchased)
+
+        for requirement in requirements.all():
+            required_ingredient = requirement.ingredient
+            required_ingredient.quantity -= (requirement.quantity*qty_purchased) 
+            required_ingredient.save()
+
+        purchase.save()
+        return redirect("/purchases")
 
 

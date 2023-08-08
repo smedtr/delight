@@ -31,9 +31,8 @@
         <a class="nav-item{% if request.path == ingredients_url %} current-page{% endif %}" href="{% url 'ingredients' %}">Ingredients</a>        
         <a class="nav-item{% if request.path == menu_url %} current-page{% endif %}" href="{% url 'menu' %}">Menu</a>
         <a class="nav-item{% if request.path == purchases_url %} current-page{% endif %}" href="{% url 'purchases' %}">Purchases</a>
-        {% comment %}
         <a class="nav-item{% if request.path == reports_url %} current-page{% endif %}" href="{% url 'reports' %}">Reports</a> 
-        {% endcomment %}   
+        {% comment %}{% endcomment %}   
       </nav>
     {% endif %}
   </header>

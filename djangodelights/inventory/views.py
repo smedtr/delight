@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 
+from django.db.models import Sum
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirement
@@ -94,4 +95,29 @@ class NewPurchaseView(TemplateView):
         purchase.save()
         return redirect("/purchases")
 
+class ReportView(TemplateView):
+    template_name = "inventory/reports.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["purchases"] = Purchase.objects.all()
+        revenue = 0
+        total_cost = 0
+        
+        #revenue = Purchase.objects.aggregate(
+        #    revenue=Sum("menu_item__price"))["revenue"]
+            
+        for purchase in Purchase.objects.all():
+            revenue += purchase.menu_item.price * purchase.quantity
+
+        for purchase in Purchase.objects.all():
+            for recipe_requirement in purchase.menu_item.reciperequirement_set.all():
+                total_cost += recipe_requirement.ingredient.unit_price * \
+                    recipe_requirement.quantity * \
+                    purchase.quantity
+
+        context["revenue"] = revenue
+        context["total_cost"] = total_cost
+        context["profit"] = revenue - total_cost
+
+        return context

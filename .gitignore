@@ -19,7 +19,7 @@ db.sqlite3*
 #fixtures
 
 # My tasklist
-TASKLIST*
+TASKLIST.md
 
 #Static examples
 static/examples

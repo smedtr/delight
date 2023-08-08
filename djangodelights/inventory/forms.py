@@ -29,3 +29,10 @@ class RecipeRequirementMenuItemForm(forms.ModelForm):
         model = RecipeRequirement
         fields = ('ingredient','quantity')
 
+class PurchaseMultiMenuItemForm(forms.Form):
+    menu_items_choices = forms.ModelMultipleChoiceField(
+        widget = forms.CheckboxSelectMultiple,
+        queryset = MenuItem.objects.all(),
+        initial = 0
+        )
+

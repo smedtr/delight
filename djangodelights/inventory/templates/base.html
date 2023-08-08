@@ -16,7 +16,9 @@
     <div class="header-first-row">
       <h1 class="title">Django Delights</h1>
       {% if user.is_authenticated %}
-      <a class="logout" href="/logout">Logout</a>
+        <a class="logout" href="{% url 'logout' %}">Logout</a>
+      {% else %}      
+        <a class="logout" href="{% url 'login' %}">Login</a>
       {% endif %}
     </div>
     {% if user.is_authenticated %}

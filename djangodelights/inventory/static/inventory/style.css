@@ -248,6 +248,11 @@ main form input[type=submit] {
     font-weight: bold;
     color: #009879;
   }
+
+  ul.errorlist {
+    font-weight: bold;
+    color:#ff1515
+  }
   
   th.price {
     text-align: right;  

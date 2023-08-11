@@ -1,8 +1,13 @@
-from django.urls import path
+from django.urls import path, register_converter
 from django.contrib.auth import views as auth_views
 
 from . import views
+from .converters import DateConverter
 
+register_converter(DateConverter, 'date')
+
+# selection_reports http://127.0.0.1:8000/selection_reports/?start_date=2023-08-09&end_date=2023-08-10
+#
 urlpatterns = [    
     path('logout/', views.LogOut, name='logout'),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
@@ -18,6 +23,8 @@ urlpatterns = [
     path('reciperequirement/<int:menu_item>/new', views.NewRecipeRequirementToMenuItemView.as_view(), name="add_recipe_requirement_to_menu_item"),   
     path('purchases/', views.PurchasesView.as_view(), name="purchases"),
     path('purchases/new', views.NewPurchaseView.as_view(), name="add_purchase"), 
-    path('reports', views.ReportView.as_view(), name="reports"),        
+    path('reports/', views.ReportView.as_view(), name="reports"),
+    path('selection_reports/', views.ReportDateSelectionView, name="selection_reports"),  
+    #path('selection_reports/<date:start_date>/', views.ReportDateSelectionView, name="selection_reports"),           
     
 ]

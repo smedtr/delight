@@ -1,13 +1,15 @@
-from django.shortcuts import redirect
+import datetime
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from django.contrib.auth import logout
 
-from django.db.models import Sum
+from django.db.models import Q
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirement
-from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, RecipeRequirementMenuItemForm, PurchaseForm, PurchaseMultiMenuItemForm
+from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, RecipeRequirementMenuItemForm, ReportDateSelectionForm
 
 # Create your views here.
 
@@ -128,3 +130,64 @@ class ReportView(LoginRequiredMixin,TemplateView):
         context["profit"] = revenue - total_cost
 
         return context
+
+def ReportDateSelectionView(request, start_date=datetime.date.today(), end_date=datetime.date.today()):
+    
+     # If this is a POST request then process the Form data
+    if request.method == 'POST':        
+        # Create a form instance and populate it with data from the request (binding):
+        form = ReportDateSelectionForm(request.POST)        
+        # Form is  valid:
+        if form.is_valid():                        
+            startdate = form.cleaned_data['startdate']
+            enddate = form.cleaned_data['enddate']            
+            purchases = Purchase.objects.filter(
+                timestamp__date__range=(startdate,enddate)  
+            )  
+            str_startdate='2023-08-09'
+            str_enddate='2023-08-11'
+            return redirect(to='http://127.0.0.1:8000/selection_reports/?start_date='+str_startdate+'&end_date='+str_enddate)
+        #           
+        # Form is not valid:
+        if not form.is_valid():  
+          ###  <ul class="errorlist"><li>Invalid date - renewal in past</li></ul>                      
+          return render(request,"inventory/reports_date_selection.html", {'form':form})
+
+            
+    # If this is a GET (or any other method) create the default form.
+    else:
+        # Try to handle this : http://127.0.0.1:8000/selection_reports/?start_date=2023-08-09&end_date=2023-08-10
+        start_date = request.GET.get('start_date', datetime.date.today() )
+        end_date = request.GET.get('end_date', datetime.date.today())  
+        purchases = Purchase.objects.filter(
+            timestamp__date__range=(start_date,end_date)           
+        )
+           
+        form = ReportDateSelectionForm(initial={'startdate': start_date,
+                                                'enddate': end_date})
+        revenue = 0
+        total_cost = 0
+        for purchase in purchases:
+            revenue += purchase.menu_item.price * purchase.quantity
+
+        for purchase in purchases:
+            for recipe_requirement in purchase.menu_item.reciperequirement_set.all():
+                total_cost += recipe_requirement.ingredient.unit_price * \
+                    recipe_requirement.quantity * \
+                    purchase.quantity
+
+                                             
+        context = {
+            'form': form,
+            'purchases' : purchases,
+            'revenue' : revenue,
+            'purchases' : purchases,
+            'revenue' : revenue,
+            'total_cost' : total_cost,
+            'profit' : revenue - total_cost,
+        }           
+
+        return render(request, "inventory/reports_date_selection.html", context)
+
+
+

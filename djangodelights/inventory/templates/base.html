@@ -36,11 +36,11 @@
         <a class="nav-item{% if request.path == ingredients_url %} current-page{% endif %}" href="{% url 'ingredients' %}">Ingredients</a>        
         <a class="nav-item{% if request.path == menu_url %} current-page{% endif %}" href="{% url 'menu' %}">Menu</a>
         <a class="nav-item{% if request.path == purchases_url %} current-page{% endif %}" href="{% url 'purchases' %}">Purchases</a>
-        <a class="nav-item{% if request.path == reports_url %} current-page{% endif %}" href="{% url 'reports' %}">Reports</a> 
-        <a class="nav-item{% if request.path == selection_reports_url %} current-page{% endif %}" href="http://127.0.0.1:8000/selection_reports/?start_date={{ current_date }}&end_date={{ current_date }}/">Selection Reports</a>         
-        {% comment %}          
-        <a class="nav-item{% if request.path == selection_reports_url %} current-page{% endif %}" href="{% url 'selection_reports' 'current_date' %}">Selection Reports</a> 
-        {% endcomment %}    
+        <a class="nav-item{% if request.path == reports_url %} current-page{% endif %}" href="{% url 'reports' %}">Reports</a>        
+        <a class="nav-item{% if request.path == selection_reports_url %} current-page{% endif %}" href="http://127.0.0.1:8000/selection_reports/{{ current_date }}">Selection Reports one date</a> 
+        <a class="nav-item{% if request.path == selection_reports_url %} current-page{% endif %}" href="http://127.0.0.1:8000/selection_reports/?start_date={{ current_date }}&end_date={{ current_date }}">Selection Reports Query</a>         
+           
+          
         {% comment %}{% endcomment %}   
       </nav>
     {% endif %}

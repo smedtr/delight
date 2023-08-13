@@ -144,9 +144,10 @@ def ReportDateSelectionView(request, start_date=datetime.date.today(), end_date=
             purchases = Purchase.objects.filter(
                 timestamp__date__range=(startdate,enddate)  
             )  
-            str_startdate='2023-08-09'
-            str_enddate='2023-08-11'
-            return redirect(to='http://127.0.0.1:8000/selection_reports/?start_date='+str_startdate+'&end_date='+str_enddate)
+            str_startdate=startdate.strftime('%Y-%m-%d')
+            str_enddate=enddate.strftime('%Y-%m-%d')            
+            my_querystring="%s?start_date=" + str_startdate + "&end_date=" + str_enddate           
+            return redirect(my_querystring % reverse('selection_reports'))
         #           
         # Form is not valid:
         if not form.is_valid():  

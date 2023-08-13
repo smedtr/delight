@@ -24,7 +24,8 @@ urlpatterns = [
     path('purchases/', views.PurchasesView.as_view(), name="purchases"),
     path('purchases/new', views.NewPurchaseView.as_view(), name="add_purchase"), 
     path('reports/', views.ReportView.as_view(), name="reports"),
+    path('selection_reports/<date:start_date>/', views.ReportDateSelectionView, name="selection_reports"),   
     path('selection_reports/', views.ReportDateSelectionView, name="selection_reports"),  
-    #path('selection_reports/<date:start_date>/', views.ReportDateSelectionView, name="selection_reports"),           
+           
     
 ]

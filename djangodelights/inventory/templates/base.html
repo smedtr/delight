@@ -6,7 +6,8 @@
   <link rel="shortcut icon" type="image/x-icon" href="https://www.codecademy.com/favicon.ico">
   <link rel="stylesheet" type="text/css" href="{% static 'inventory/style.css' %}" />
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <title>{% block title %}Django Delights{% endblock %}</title>
   {% block head %}{% endblock %}
 </head>
@@ -27,7 +28,8 @@
         {% url 'home' as home_url %}
         {% url 'ingredients' as ingredients_url %}
         {% url 'menu' as menu_url %}
-        {% url 'purchases' as purchases_url %}        
+        {% url 'purchases' as purchases_url %} 
+        {% url 'search_add_purchase' as search_add_purchase_url %}      
         {% url 'reports' as reports_url %}
         {% url 'selection_reports' as selection_reports_url %}  
         {% now 'Y-m-d' as current_date %}   
@@ -36,6 +38,7 @@
         <a class="nav-item{% if request.path == ingredients_url %} current-page{% endif %}" href="{% url 'ingredients' %}">Ingredients</a>        
         <a class="nav-item{% if request.path == menu_url %} current-page{% endif %}" href="{% url 'menu' %}">Menu</a>
         <a class="nav-item{% if request.path == purchases_url %} current-page{% endif %}" href="{% url 'purchases' %}">Purchases</a>
+        <a class="nav-item{% if request.path == search_add_purchase_url %} current-page{% endif %}" href="{% url 'search_add_purchase' %}">Search Add Purchase</a>
         <a class="nav-item{% if request.path == reports_url %} current-page{% endif %}" href="{% url 'reports' %}">Reports</a>        
         <a class="nav-item{% if request.path == selection_reports_url %} current-page{% endif %}" href="http://127.0.0.1:8000/selection_reports/{{ current_date }}">Selection Reports one date</a> 
         <a class="nav-item{% if request.path == selection_reports_url %} current-page{% endif %}" href="http://127.0.0.1:8000/selection_reports/?start_date={{ current_date }}&end_date={{ current_date }}">Selection Reports Query</a>         

@@ -24,6 +24,10 @@ class PurchaseForm(forms.ModelForm):
         model = Purchase
         fields = "__all__"
 
+class PurchaseSearchAddForm(forms.Form):    
+    form_search = forms.CharField(label='Search It',max_length=100)    
+    
+
 class RecipeRequirementForm(forms.ModelForm):
     class Meta:
         model = RecipeRequirement

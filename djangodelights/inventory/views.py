@@ -9,7 +9,7 @@ from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirement
-from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, RecipeRequirementMenuItemForm, ReportDateSelectionForm
+from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, RecipeRequirementMenuItemForm, ReportDateSelectionForm, PurchaseSearchAddForm
 
 # Create your views here.
 
@@ -190,5 +190,43 @@ def ReportDateSelectionView(request, start_date=datetime.date.today(), end_date=
 
         return render(request, "inventory/reports_date_selection.html", context)
 
+def PurchaseSearchAddView(request):
+    # 
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':        
+        # Create a form instance and populate it with data from the request (binding):
+        form = PurchaseSearchAddForm(request.POST)        
+        # Form is  valid:
+        if form.is_valid():             
+            form_search = form.cleaned_data['form_search']
+            ###values = Blog.objects.filter(name__contains="Cheddar").values_list("pk", flat=True)
+            ###entries = Entry.objects.filter(blog__in=list(values))
+            #available_menu_items =[X for X in MenuItem.objects.all() if X.available()]
+            available_menu_items = [X for X in MenuItem.objects.filter(title__icontains=form_search) if X.available()]
+
+            context = {
+                'form': form,  
+                'menu_items': available_menu_items,  
+                'menu_items_found': len(available_menu_items),                  
+            }              
+            return render(request, "inventory/add_search_purchase.html", context)
+        #           
+        # Form is not valid:
+        if not form.is_valid():     
+          ###  <ul class="errorlist"><li>Invalid date - renewal in past</li></ul>                      
+          return render(request,"inventory/add_search_purchase.html", {'form':form})
+          
+    # If this is a GET (or any other method) create the default form.
+    else:       
+        available_menu_items = [X for X in MenuItem.objects.all() if X.available()]            
+        form = PurchaseSearchAddForm()        
+                                             
+        context = {
+            'form': form, 
+            'menu_items': available_menu_items, 
+            'menu_items_found': len(available_menu_items),                    
+        }           
+
+        return render(request, "inventory/add_search_purchase.html", context)
 
 

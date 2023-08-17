@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+    <h2>Search and add a new purchase</h2>
+    <form method="post">
+    <div>
+    {% csrf_token %} 
+    <i class="material-icons">search</i>  
+    <hr>
+    {% comment %}{% endcomment %}
+    <label for="id_{{ form.form_search.name }}" class="control-label">{{ form.form_search.label }}</label>
+    {{ form.form_search }} 
+    <input type="submit" value="Search"/>
+    <hr>       
+    
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Checkbox</th>
+                <th>Title</th>
+                <th>Quantity</th>                
+            </tr>
+        </thead>
+        <tbody>
+            {% for menu_item in menu_items %} 
+                <tr>
+                    <td></td>
+                    <td>{{ menu_item.title }}</td>         
+                    <td class="price"></td>                              
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+    Number of Menus : {{ menu_items_found }}
+
+    </div>
+    </form>
+{% endblock %}
+
